@@ -7,6 +7,7 @@ param (
     [string]$warmUpPath = "health",
     [string]$codePath = "C:\Temp\leadlovers\production" ,
     [string]$backupPath = "C:\Home\leadlovers\production\backup",
+    [string]$baseFolder = "C:\Home\iis-blue-green-deploy",
     [bool]$precompile = $true
 ) 
 
@@ -26,7 +27,7 @@ if ($folders.Count -gt 0) {
         $backupVersion = $folders[$index - 1]
         $confirm = Read-Host "Are you sure you want to rollback to version $($backupVersion.FullName)? [y|n]"
         if ($confirm -eq 'y') {
-            $cmd = "C:\Home\iis-bluegreen-powershell\local-deploy.ps1"
+            $cmd = "$baseFolder\local-deploy.ps1"
             $cmd = $cmd + " -serverFarmName `"$serverFarmName`""
             $cmd = $cmd + " -bluePath `"$bluePath`""
             $cmd = $cmd + " -greenPath `"$greenPath`""
